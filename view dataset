@@ -1,0 +1,9 @@
+filename = 'sample_1GB_data.csv'
+
+try:
+    with open(filename, 'r', encoding='utf-8') as file:
+        for _ in range(35):
+            print(file.readline().strip())
+except FileNotFoundError:
+    print("File not found. Please check the file path.")
+
