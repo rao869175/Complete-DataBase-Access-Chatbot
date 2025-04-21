@@ -1,0 +1,30 @@
+import os
+import random
+import string
+
+# Target file size: 1GB = 1 * 1024 * 1024 * 1024 bytes
+target_size = 1 * 1024 * 1024 * 1024
+filename = 'sample_1GB_data.csv'
+
+def random_string(length):
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+
+with open(filename, 'w', encoding='utf-8') as f:
+    # Write CSV header
+    f.write('id,name,email,age,city\n')
+    current_size = f.tell()
+
+    id_counter = 1
+    while current_size < target_size:
+        name = random_string(10)
+        email = f'{random_string(5)}@example.com'
+        age = str(random.randint(18, 70))
+        city = random_string(8)
+
+        line = f'{id_counter},{name},{email},{age},{city}\n'
+        f.write(line)
+
+        id_counter += 1
+        current_size += len(line)
+
+print(f'CSV file "{filename}" created with approximate size of 1GB.')
